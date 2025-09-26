@@ -162,7 +162,7 @@ public class TankSynchroniser {
             getStorage(false).freq.writeToPacket(packet);
             //packet.writeString(storage.owner);
             packet.writeFluidStack(s_liquid);
-            packet.writeInt(s_gas_amount);
+            packet.writeInt(s_gas_id);
             packet.writeInt(s_gas_amount);
             packet.sendToPlayer(player);
         }
