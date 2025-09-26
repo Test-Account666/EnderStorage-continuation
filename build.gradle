@@ -1,13 +1,17 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
+        maven {
+            name = "opencomputers"
+            url = "https://maven.cil.li/"
+        }
         maven {
             name = "jitpack"
             url = "https://jitpack.io/"
         }
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = "https://maven.minecraftforge.net"
         }
     }
     dependencies {
@@ -21,23 +25,32 @@ repositories {
         dirs 'libs'
     }
     maven {
-        url = "https://www.cursemaven.com"
+        name = "opencomputers"
+        url = "https://maven.cil.li/"
     }
 	maven {
 		name = "CB Repo"
-		url = "http://chickenbones.net/maven"
+		url = "https://maven.covers1624.net/"
 	}
 	maven {
 		name = "JEI Maven"
-		url = "http://dvs1.progwml6.com/files/maven"
+		url = "https://dvs1.progwml6.com/files/maven"
 	}
     maven {
-        name = "mcmoddev"
-        url = "https://maven.mcmoddev.com"
+        name = "ModMaven"
+        url = "https://modmaven.dev"
     }
     maven {
-        name = "CurseForge"
-        url = "https://minecraft.curseforge.com/api/maven/"
+        name = "CurseMaven"
+        url = "https://www.cursemaven.com"
+    }
+    maven {
+        name = "Forge"
+        url = "https://maven.minecraftforge.net"
+    }
+    maven {
+        name = "BlameJared"
+        url = "https://maven.blamejared.com"
     }
     maven {
         name 'jitpack'
@@ -75,7 +88,7 @@ dependencies {
     shade "com.github.MJaroslav.Reflectors:library:v4"
     compile "codechicken:CodeChickenLib:${config.mc_version}-${config.ccl_version}:deobf"
 	compile "mezz.jei:jei_${config.mc_version}:${config.jei_version}"
-    deobfCompile "mekanism:Mekanism:${config.mc_version}:${config.mekanism_version}"
+    deobfCompile("com.github.aidancbrady:Mekanism:${config.mekanism_version}")
     deobfCompile "curse.maven:baubles-227083:2518667"
     deobfCompile "curse.maven:botania-225643:3330934"
 
