@@ -83,23 +83,8 @@ public class ItemEnderStorage extends ItemBlock {
 
     @Override
     public ICapabilityProvider initCapabilities(@Nonnull final ItemStack stack, NBTTagCompound nbt) {
-        if (getMetadata(stack) == 1 && enderTankItemFluidHandler && stack.getCount() == 1) {
-            return new ICapabilityProvider() {
-                @Override
-                public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-                    return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-                            || capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY;
-                }
-
-                @Override
-                public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-                    if(capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) {
-                        return CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY.cast(getLiquidStorage(stack, true));
-                    }
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY ? getLiquidStorage(stack, true) : null);
-                }
-            };
-        }
+        // Remove all item fluid handler capabilities from Ender Tank items to prevent bucket-like interactions
+        // Bucket interactions were really buggy, so we had to remove them for now
         return null;
     }
 }
