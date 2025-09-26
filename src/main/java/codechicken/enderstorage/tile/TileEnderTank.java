@@ -373,10 +373,6 @@ public class TileEnderTank extends TileFrequencyOwner implements IGasHandler, IM
         liquid_state.setFrequency(frequency);
         liquid_state.forceUpdate();
         markDirty();
-        if(entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) entity;
-            FluidUtil.interactWithFluidHandler(player, player.swingingHand, getStorage());
-        }
         getStorage().manager.requestSave(getStorage());
         sendUpdatePacket();
     }
@@ -474,7 +470,14 @@ public class TileEnderTank extends TileFrequencyOwner implements IGasHandler, IM
 
     public void sync(PacketCustom packet) {
         if (packet.getType() == 5) {
-            liquid_state.sync(packet.readFluidStack(), packet.readInt(), packet.readInt());
+            FluidStack fluidStack = packet.readFluidStack();
+            int gasId = 0;
+            int gasAmount = 0;
+            if (EnderStorage.hooks.MekanismLoaded) {
+                gasId = packet.readInt();
+                gasAmount = packet.readInt();
+            }
+            liquid_state.sync(fluidStack, gasId, gasAmount);
         } else if (packet.getType() == 6) {
             pressure_state.a_pressure = packet.readBoolean();
         }
